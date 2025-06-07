@@ -1,5 +1,5 @@
-import { usersService } from "../services/index.js";
-import { createHash, passwordValidation } from "../utils/index.js";
+// import { usersService } from "../services/index.js";
+// import { createHash, passwordValidation } from "../utils/index.js";
 import jwt from 'jsonwebtoken';
 import UserDTO from '../dto/User.dto.js';
 
@@ -20,7 +20,7 @@ const register = async (req, res) => {
         console.log(result);
         res.send({ status: "success", payload: result._id });
     } catch (error) {
-
+        next(error);
     }
 }
 

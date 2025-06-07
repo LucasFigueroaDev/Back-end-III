@@ -1,24 +1,24 @@
-import petModel from "./models/Pet.js";
+import BaseDao from "./Base.dao.js";
+import { petModel } from "../models/pet.model.js";
 
-export default class Pet {
-
-    get = (params) =>{
-        return petModel.find(params)
+class PetDao extends BaseDao {
+    constructor(model) {
+        super(model);
+    }
+    getByName = async (name) => {
+        try {
+            return await this.model.findOne({ name });
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
-    getBy = (params) =>{
-        return petModel.findOne(params);
-    }
-
-    save = (doc) =>{
-        return petModel.create(doc);
-    }
-
-    update = (id,doc) =>{
-        return petModel.findByIdAndUpdate(id,{$set:doc})
-    }
-
-    delete = (id) =>{
-        return petModel.findByIdAndDelete(id);
+    getBySpecie = async (specie) => {
+        try {
+            return await this.model.find({ specie });
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 }
+export const PetDao = new PetDao(petModel);

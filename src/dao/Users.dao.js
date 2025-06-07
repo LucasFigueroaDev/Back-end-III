@@ -1,25 +1,25 @@
-import userModel from "./models/User.js";
+import BaseDao from "./Base.dao.js";
+import { userModel } from "../models/user.model.js";
 
-
-export default class Users {
-    
-    get = (params) =>{
-        return userModel.find(params);
+class UserDao extends BaseDao {
+    constructor(model) {
+        super(model);
     }
 
-    getBy = (params) =>{
-        return userModel.findOne(params);
+    getByEmail = async (email) => {
+        try {
+            return await this.model.findOne({ email });
+        } catch (error) {
+            throw new Error(Error);
+        }
     }
 
-    save = (doc) =>{
-        return userModel.create(doc);
-    }
-
-    update = (id,doc) =>{
-        return userModel.findByIdAndUpdate(id,{$set:doc})
-    }
-
-    delete = (id) =>{
-        return userModel.findByIdAndDelete(id);
+    getUserById = async (id) => {
+        try {
+            return await this.model.findById(id).populate('pets');
+        } catch (error) {
+            throw new Error(Error);
+        }
     }
 }
+export const userDao = new UserDao(userModel);

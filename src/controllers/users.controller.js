@@ -1,35 +1,54 @@
-import { usersService } from "../services/index.js"
+import { userRepository } from "../repository/user.repository.js";
+import { createResponse } from "../utils/createResponse.js";
 
-const getAllUsers = async(req,res)=>{
-    const users = await usersService.getAll();
-    res.send({status:"success",payload:users})
+class UsersController {
+    constructor(repository) {
+        this.repository = repository
+    }
+    getAllUsers = async (req, res, next) => {
+        try {
+            const users = await this.repository.getAllUsers();
+            createResponse(res, 200, { status: "success", payload: users });
+        } catch (error) {
+            next(error);
+        }
+    }
+    getUser = async (req, res, next) => {
+        try {
+            const { id } = req.user;
+            const user = await this.repository.getUserById(id);
+            createResponse(res, 200, { status: "success", payload: user });
+        } catch (error) {
+            next(error);
+        }
+    }
+    updateUser = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const updateBody = req.body;
+            const userUpdated = await this.repository.updateUser(id, updateBody);
+            createResponse(res, 200, { status: "success", payload: userUpdated });
+        } catch (error) {
+            next(error);
+        }
+    }
+    deleteUser = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const userDeleted = await this.repository.userDelete(id);
+            createResponse(res, 200, { status: "success", payload: userDeleted });
+        } catch (error) {
+            next(error);
+        }
+    }
+    
 }
 
-const getUser = async(req,res)=> {
-    const userId = req.params.uid;
-    const user = await usersService.getUserById(userId);
-    if(!user) return res.status(404).send({status:"error",error:"User not found"})
-    res.send({status:"success",payload:user})
-}
+export const usersController = new UsersController(userRepository);
 
-const updateUser =async(req,res)=>{
-    const updateBody = req.body;
-    const userId = req.params.uid;
-    const user = await usersService.getUserById(userId);
-    if(!user) return res.status(404).send({status:"error", error:"User not found"})
-    const result = await usersService.update(userId,updateBody);
-    res.send({status:"success",message:"User updated"})
-}
 
-const deleteUser = async(req,res) =>{
-    const userId = req.params.uid;
-    const result = await usersService.getUserById(userId);
-    res.send({status:"success",message:"User deleted"})
-}
 
-export default {
-    deleteUser,
-    getAllUsers,
-    getUser,
-    updateUser
-}
+
+
+
+
