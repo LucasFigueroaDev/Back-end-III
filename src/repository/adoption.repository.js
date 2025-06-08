@@ -10,7 +10,7 @@ class AdoptionRepository {
 
     getAllAdoptions = async () => {
         try {
-            const adoptions = await this.dao.getAll();
+            const adoptions = await this.dao.getAdoptionAll();
             if (!adoptions) throw new CustomError(404, "Error al obtener las adopciones");
             return adoptions;
         } catch (error) {

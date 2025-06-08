@@ -8,9 +8,6 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, default: 'user' },
-    pets: {
-        type: [{ _id: { type: Schema.Types.ObjectId, ref: 'Pets' } }],
-        default: []
-    }
+    pets: [{ type: Schema.Types.ObjectId, ref: 'Pets', default: [] }]
 });
 export const userModel = model (userCollection,userSchema);
