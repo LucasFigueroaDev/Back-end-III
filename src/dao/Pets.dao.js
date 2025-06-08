@@ -1,5 +1,5 @@
 import BaseDao from "./Base.dao.js";
-import { petModel } from "../models/pet.model.js";
+import { PetModel } from "../models/pet.model.js";
 
 class PetDao extends BaseDao {
     constructor(model) {
@@ -21,4 +21,4 @@ class PetDao extends BaseDao {
         }
     }
 }
-export const PetDao = new PetDao(petModel);
+export const petDao = new PetDao(PetModel);

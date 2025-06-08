@@ -1,20 +1,27 @@
-import multer from 'multer';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import multer from "multer";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+export const __dirname = path.dirname(__filename);
 
+const rootDir = path.resolve(__dirname, '../../');
+
+const uploadPath = path.join(rootDir, '../public');
+
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+}
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, `${__dirname}/../public/img`)
+    destination: (req, file, cb) => {
+        cb(null, uploadPath);  
     },
-    filename: function (req, file, cb) {
-        cb(null, `${Date.now()}-${file.originalname}`)
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); 
     }
-})
-
-const uploader = multer({ storage })
+});
+const uploader = multer({ storage });
 
 export default uploader;

@@ -8,16 +8,16 @@ class UsersController {
     getAllUsers = async (req, res, next) => {
         try {
             const users = await this.repository.getAllUsers();
-            createResponse(res, 200, { status: "success", payload: users });
+            createResponse(res, 200, { status: "Exito al obtener todos los usuarios", payload: users });
         } catch (error) {
             next(error);
         }
     }
     getUser = async (req, res, next) => {
         try {
-            const { id } = req.user;
+            const { id } = req.params;
             const user = await this.repository.getUserById(id);
-            createResponse(res, 200, { status: "success", payload: user });
+            createResponse(res, 200, { status: "Exito al obtener el usuario", payload: user });
         } catch (error) {
             next(error);
         }
@@ -26,8 +26,8 @@ class UsersController {
         try {
             const { id } = req.params;
             const updateBody = req.body;
-            const userUpdated = await this.repository.updateUser(id, updateBody);
-            createResponse(res, 200, { status: "success", payload: userUpdated });
+            const userUpdated = await this.repository.userUpdate(id, updateBody);
+            createResponse(res, 200, { status: "Exito al actualizar el usuario", payload: userUpdated });
         } catch (error) {
             next(error);
         }
@@ -36,7 +36,7 @@ class UsersController {
         try {
             const { id } = req.params;
             const userDeleted = await this.repository.userDelete(id);
-            createResponse(res, 200, { status: "success", payload: userDeleted });
+            createResponse(res, 200, { status: "Exito al eliminar el usuario", payload: userDeleted });
         } catch (error) {
             next(error);
         }

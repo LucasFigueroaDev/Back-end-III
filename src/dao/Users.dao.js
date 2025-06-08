@@ -8,9 +8,9 @@ class UserDao extends BaseDao {
 
     getByEmail = async (email) => {
         try {
-            return await this.model.findOne({ email });
+            return await this.model.findOne({email});
         } catch (error) {
-            throw new Error(Error);
+            throw new Error(error);
         }
     }
 
@@ -18,7 +18,7 @@ class UserDao extends BaseDao {
         try {
             return await this.model.findById(id).populate('pets');
         } catch (error) {
-            throw new Error(Error);
+            throw new Error(error);
         }
     }
 }

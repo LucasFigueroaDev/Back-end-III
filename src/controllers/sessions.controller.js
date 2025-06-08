@@ -1,69 +1,42 @@
-// import { usersService } from "../services/index.js";
-// import { createHash, passwordValidation } from "../utils/index.js";
-import jwt from 'jsonwebtoken';
-import UserDTO from '../dto/User.dto.js';
+import { userRepository } from '../repository/user.repository.js';
+import { createResponse } from '../utils/createResponse.js';
+import 'dotenv/config';
 
-const register = async (req, res) => {
-    try {
-        const { first_name, last_name, email, password } = req.body;
-        if (!first_name || !last_name || !email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
-        const exists = await usersService.getUserByEmail(email);
-        if (exists) return res.status(400).send({ status: "error", error: "User already exists" });
-        const hashedPassword = await createHash(password);
-        const user = {
-            first_name,
-            last_name,
-            email,
-            password: hashedPassword
+class SessionsController {
+    constructor(repository) {
+        this.repository = repository
+    }
+
+    register = async (req, res, next) => {
+        try {
+            const newUser = req.body;
+            const user = await this.repository.userRegister(newUser);
+            createResponse(res, 201, { status: "Registro exitoso", payload: user });
+        } catch (error) {
+            next(error);
         }
-        let result = await usersService.create(user);
-        console.log(result);
-        res.send({ status: "success", payload: result._id });
-    } catch (error) {
-        next(error);
+    }
+
+    login = async (req, res, next) => {
+        try {
+            const userLogin = req.body;
+            const token = await this.repository.userLogin(userLogin);
+            res.cookie('token', token, { httpOnly: true} )
+            createResponse(res, 200, { status: "Usuario logueado", token: token });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    current = async (req, res, next) => {
+        try {
+            const {id} = req.user;
+            const user = await this.repository.getUserById(id);
+            createResponse(res, 200, user);
+        } catch (error) {
+            next(error);
+        }
     }
 }
 
-const login = async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
-    const user = await usersService.getUserByEmail(email);
-    if(!user) return res.status(404).send({status:"error",error:"User doesn't exist"});
-    const isValidPassword = await passwordValidation(user,password);
-    if(!isValidPassword) return res.status(400).send({status:"error",error:"Incorrect password"});
-    const userDto = UserDTO.getUserTokenFrom(user);
-    const token = jwt.sign(userDto,'tokenSecretJWT',{expiresIn:"1h"});
-    res.cookie('coderCookie',token,{maxAge:3600000}).send({status:"success",message:"Logged in"})
-}
-
-const current = async(req,res) =>{
-    const cookie = req.cookies['coderCookie']
-    const user = jwt.verify(cookie,'tokenSecretJWT');
-    if(user)
-        return res.send({status:"success",payload:user})
-}
-
-const unprotectedLogin  = async(req,res) =>{
-    const { email, password } = req.body;
-    if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
-    const user = await usersService.getUserByEmail(email);
-    if(!user) return res.status(404).send({status:"error",error:"User doesn't exist"});
-    const isValidPassword = await passwordValidation(user,password);
-    if(!isValidPassword) return res.status(400).send({status:"error",error:"Incorrect password"});
-    const token = jwt.sign(user,'tokenSecretJWT',{expiresIn:"1h"});
-    res.cookie('unprotectedCookie',token,{maxAge:3600000}).send({status:"success",message:"Unprotected Logged in"})
-}
-const unprotectedCurrent = async(req,res)=>{
-    const cookie = req.cookies['unprotectedCookie']
-    const user = jwt.verify(cookie,'tokenSecretJWT');
-    if(user)
-        return res.send({status:"success",payload:user})
-}
-export default {
-    current,
-    login,
-    register,
-    current,
-    unprotectedLogin,
-    unprotectedCurrent
-}
+export const sessionsController = new SessionsController(userRepository);

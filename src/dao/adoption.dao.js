@@ -6,4 +6,4 @@ class AdoptionDao extends BaseDao {
         super(model);
     }
 }
-export const AdoptionDao = new AdoptionDao(adoptionModel);
+export const adoptionDao = new AdoptionDao(adoptionModel);

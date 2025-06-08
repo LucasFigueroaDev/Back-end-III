@@ -6,4 +6,4 @@ const adoptedSchema = new Schema({
     pet: { type: Schema.Types.ObjectId, ref: 'Pets' }
 })
 
-export const AdoptionModel = model (adoptedCollection,adoptedSchema);
+export const adoptionModel = model (adoptedCollection,adoptedSchema);
