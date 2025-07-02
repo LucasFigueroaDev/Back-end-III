@@ -1,13 +1,13 @@
-import { userRepository } from "../repository/user.repository.js";
+import { userService } from "../services/user.service.js";
 import { createResponse } from "../utils/createResponse.js";
 
 class UsersController {
-    constructor(repository) {
-        this.repository = repository
+    constructor(service) {
+        this.service = service
     }
     getAllUsers = async (req, res, next) => {
         try {
-            const users = await this.repository.getAllUsers();
+            const users = await this.service.getAllUsers();
             createResponse(res, 200, { status: "Exito al obtener todos los usuarios", payload: users });
         } catch (error) {
             next(error);
@@ -16,7 +16,7 @@ class UsersController {
     getUser = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const user = await this.repository.getUserById(id);
+            const user = await this.service.getUserById(id);
             createResponse(res, 200, { status: "Exito al obtener el usuario", payload: user });
         } catch (error) {
             next(error);
@@ -26,7 +26,7 @@ class UsersController {
         try {
             const { id } = req.params;
             const updateBody = req.body;
-            const userUpdated = await this.repository.userUpdate(id, updateBody);
+            const userUpdated = await this.service.userUpdate(id, updateBody);
             createResponse(res, 200, { status: "Exito al actualizar el usuario", payload: userUpdated });
         } catch (error) {
             next(error);
@@ -35,7 +35,7 @@ class UsersController {
     deleteUser = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const userDeleted = await this.repository.userDelete(id);
+            const userDeleted = await this.service.userDelete(id);
             createResponse(res, 200, { status: "Exito al eliminar el usuario", payload: userDeleted });
         } catch (error) {
             next(error);
@@ -44,11 +44,4 @@ class UsersController {
     
 }
 
-export const usersController = new UsersController(userRepository);
-
-
-
-
-
-
-
+export const usersController = new UsersController(userService);

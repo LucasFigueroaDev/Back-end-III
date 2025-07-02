@@ -1,13 +1,13 @@
-import { petRepository } from "../repository/pet.repository.js";
+import { petService } from "../services/pets.service.js";
 import { createResponse } from "../utils/createResponse.js";
 class PetsController {
-    constructor(repositoyry) {
-        this.repository = repositoyry
+    constructor(service) {
+        this.service = service
     }
 
     getAllPets = async (req, res, next) => {
         try {
-            const allPets = await this.repository.getAllPets();
+            const allPets = await this.service.getAllPets();
             createResponse(res, 200, { status: "Exito al obtener todos los pets", payload: allPets });
         } catch (error) {
             next(error);
@@ -20,7 +20,7 @@ class PetsController {
             if (req.file) {
                 newPet.image = `/img/${req.file.filename}`;
             }
-            const pet = await this.repository.createPet(newPet);
+            const pet = await this.service.createPet(newPet);
             createResponse(res, 201, { status: "Exito al crear pet", payload: pet });
         } catch (error) {
             next(error);
@@ -31,7 +31,7 @@ class PetsController {
         try {
             const { id } = req.params;
             const petUpdateBody = req.body;
-            const pet = await this.repository.updatePet(id, petUpdateBody);
+            const pet = await this.service.updatePet(id, petUpdateBody);
             createResponse(res, 200, { status: "Exito al actualizar pet", payload: pet });
         } catch (error) {
             next(error);
@@ -41,7 +41,7 @@ class PetsController {
     deletePet = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const pet = await this.repository.deletePet(id);
+            const pet = await this.service.deletePet(id);
             createResponse(res, 200, { status: "Exito al eliminar pet", payload: pet });
         } catch (error) {
             next(error);
@@ -50,4 +50,4 @@ class PetsController {
 }
 
 
-export const petsController = new PetsController(petRepository);
+export const petsController = new PetsController(petService);

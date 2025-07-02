@@ -7,19 +7,11 @@ class UserDao extends BaseDao {
     }
 
     getByEmail = async (email) => {
-        try {
-            return await this.model.findOne({email});
-        } catch (error) {
-            throw new Error(error);
-        }
+        return await this.model.findOne({ email });
     }
 
     getUserById = async (id) => {
-        try {
-            return await this.model.findById(id).populate('pets');
-        } catch (error) {
-            throw new Error(error);
-        }
+        return await this.model.findById(id).populate('pets');
     }
 }
 export const userDao = new UserDao(userModel);

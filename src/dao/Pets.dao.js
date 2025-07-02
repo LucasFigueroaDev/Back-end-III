@@ -6,19 +6,11 @@ class PetDao extends BaseDao {
         super(model);
     }
     getByName = async (name) => {
-        try {
-            return await this.model.findOne({ name });
-        } catch (error) {
-            throw new Error(error);
-        }
+        return await this.model.findOne({ name });
     }
 
     getBySpecie = async (specie) => {
-        try {
-            return await this.model.find({ specie });
-        } catch (error) {
-            throw new Error(error);
-        }
+        return await this.model.find({ specie });
     }
 }
 export const petDao = new PetDao(PetModel);

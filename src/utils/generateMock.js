@@ -12,19 +12,15 @@ export const generateMockUsers = async (count = 1) => {
             pets: []
         };
     });
-
     return await Promise.all(users);
 };
 
 export const generateMockPets = (count = 1) => {
     const speciesList = ['gato', 'perro'];
     const pets = [];
-
     for (let i = 0; i < count; i++) {
         const specie = faker.helpers.arrayElement(speciesList);
-
         const name = specie === 'gato' ? faker.animal.cat() : faker.animal.dog();
-
         pets.push({
             name,
             specie,
@@ -33,6 +29,5 @@ export const generateMockPets = (count = 1) => {
             image: ''
         });
     }
-
     return pets;
 };

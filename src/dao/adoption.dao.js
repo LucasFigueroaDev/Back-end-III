@@ -7,11 +7,8 @@ class AdoptionDao extends BaseDao {
     }
 
     getAdoptionAll = async () => {
-        try {
-            return await this.model.find().populate({path: 'owner', select: 'first_name last_name -_id'}).populate({path: 'pet', select: 'name -_id'});
-        } catch (error) {
-            throw new Error(error);
-        }
+        return await this.model.find().populate({ path: 'owner', select: 'first_name last_name -_id' }).populate({ path: 'pet', select: 'name -_id' });
     }
+
 }
 export const adoptionDao = new AdoptionDao(adoptionModel);
