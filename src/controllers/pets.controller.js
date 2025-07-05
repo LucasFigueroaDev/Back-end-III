@@ -8,7 +8,7 @@ class PetsController {
     getAllPets = async (req, res, next) => {
         try {
             const allPets = await this.service.getAllPets();
-            createResponse(res, 200, { status: "Exito al obtener todos los pets", payload: allPets });
+            createResponse(res, 200, { status: "Lista de mascotas", payload: allPets });
         } catch (error) {
             next(error);
         }
@@ -21,7 +21,7 @@ class PetsController {
                 newPet.image = `/img/${req.file.filename}`;
             }
             const pet = await this.service.createPet(newPet);
-            createResponse(res, 201, { status: "Exito al crear pet", payload: pet });
+            createResponse(res, 201, { status: "Exito al cargar mascota", payload: pet });
         } catch (error) {
             next(error);
         }
@@ -32,7 +32,7 @@ class PetsController {
             const { id } = req.params;
             const petUpdateBody = req.body;
             const pet = await this.service.updatePet(id, petUpdateBody);
-            createResponse(res, 200, { status: "Exito al actualizar pet", payload: pet });
+            createResponse(res, 200, { status: "Exito al actualizar mascota", payload: pet });
         } catch (error) {
             next(error);
         }
@@ -42,7 +42,7 @@ class PetsController {
         try {
             const { id } = req.params;
             const pet = await this.service.deletePet(id);
-            createResponse(res, 200, { status: "Exito al eliminar pet", payload: pet });
+            createResponse(res, 200, { status: "Exito al eliminar mascota", payload: pet });
         } catch (error) {
             next(error);
         }

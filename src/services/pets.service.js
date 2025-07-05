@@ -19,7 +19,7 @@ class PetsService {
     getPetById = async (id) => {
         try {
             const pet = await this.repository.getPetById(id);
-            if (!pet) throw new CustomError(404, "Error al obtener el pet por id");
+            if (!pet) throw new CustomError(404, "Error al obtener la mascota por id");
             return pet;
         } catch (error) {
             throw error;
@@ -29,7 +29,7 @@ class PetsService {
     getNamedPet = async (name) => {
         try {
             const pet = await this.repository.getNamedPet(name);
-            if (!pet) throw new CustomError(404, "Error al obtener el pet");
+            if (!pet) throw new CustomError(404, "Error al obtener la mascota por el nombre");
             return pet;
         } catch (error) {
             throw error;
@@ -39,7 +39,7 @@ class PetsService {
     createPet = async (body) => {
         try {
             const newPet = await this.repository.createPet(body);
-            if (!newPet) throw new CustomError(404, "Error al crear el pet");
+            if (!newPet) throw new CustomError(404, "Error al crear la mascota");
             return newPet;
         } catch (error) {
             throw error;
@@ -50,7 +50,7 @@ class PetsService {
         try {
             const idpet = await this.getPetById(id);
             const updatedPet = await this.repository.updatePet(idpet, body);
-            if (!updatedPet) throw new CustomError(404, "Error al actualizar el pet");
+            if (!updatedPet) throw new CustomError(404, "Error al actualizar la mascota");
             return updatedPet;
         } catch (error) {
             throw error;
@@ -60,7 +60,7 @@ class PetsService {
     deletePet = async (id) => {
         try {
             const deletedPet = await this.repository.deletePet(id);
-            if (!deletedPet) throw new CustomError(404, "Error al eliminar el pet");
+            if (!deletedPet) throw new CustomError(404, "Error al eliminar la mascota");
             return deletedPet;
         } catch (error) {
             throw error;

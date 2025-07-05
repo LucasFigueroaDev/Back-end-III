@@ -11,7 +11,7 @@ class SessionsController {
         try {
             const newUser = req.body;
             const user = await this.service.userRegister(newUser);
-            createResponse(res, 201, { status: "Registro exitoso", payload: user });
+            createResponse(res, 201, { status: "Usuario registrado con exito", payload: user });
         } catch (error) {
             next(error);
         }
@@ -22,7 +22,7 @@ class SessionsController {
             const userLogin = req.body;
             const token = await this.service.userLogin(userLogin);
             res.cookie('token', token, { httpOnly: true} )
-            createResponse(res, 200, { status: "Usuario logueado", token: token });
+            createResponse(res, 200, { status: "Usuario logueado con exito", token: token });
         } catch (error) {
             next(error);
         }
