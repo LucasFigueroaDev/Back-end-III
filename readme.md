@@ -122,13 +122,17 @@ Se utiliza la biblioteca **validator** y los DTOs para asegurar la integridad de
 
 Puedes acceder a la imagen Docker publicada desde el siguiente enlace:
 
-[Docker Hub - Nombre del Proyecto](https://hub.docker.com/tu-imagen-aqui)
+[🐳 Imagen en Docker Hub](https://hub.docker.com/r/figueroalucas/backend3)
 
 ---
 
 ## 📬 Contacto
 
 Proyecto desarrollado por Lucas Figueroa.
+
+**[figueroa.dev93@gmail.com](figueroa.dev93@gmail.com)**
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/lucas-figueroa-94711b260)
 
 ---
 

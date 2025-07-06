@@ -1,4 +1,4 @@
-import BaseDao from "./Base.dao.js";
+import BaseDao from "./base.dao.js";
 import { adoptionModel } from "../models/adoption.model.js";
 
 class AdoptionDao extends BaseDao {
