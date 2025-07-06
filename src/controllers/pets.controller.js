@@ -14,6 +14,26 @@ class PetsController {
         }
     }
 
+    getPetById = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const pet = await this.service.getPetById(id);
+            createResponse(res, 200, { status: "Exito al obtener mascota", payload: pet });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    getPetsByName = async (req, res, next) => {
+        try {
+            const { name } = req.params;
+            const pet = await this.service.getPetsByName(name);
+            createResponse(res, 200, { status: "Exito al obtener las mascotas", payload: pet });
+        } catch (error) {
+            next(error);
+        }
+    }
+
     createPet = async (req, res, next) => {
         try {
             const newPet = req.body;

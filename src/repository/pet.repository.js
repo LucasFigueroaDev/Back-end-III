@@ -13,7 +13,7 @@ class PetsRepository {
         return await this.dao.getById(id);
     }
 
-    getNamedPet = async (name) => {
+    getPetsByName = async (name) => {
         return await this.dao.getByName(name);
     }
 

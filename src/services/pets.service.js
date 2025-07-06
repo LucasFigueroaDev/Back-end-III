@@ -26,9 +26,9 @@ class PetsService {
         }
     }
 
-    getNamedPet = async (name) => {
+    getPetsByName = async (name) => {
         try {
-            const pet = await this.repository.getNamedPet(name);
+            const pet = await this.repository.getPetsByName(name);
             if (!pet) throw new CustomError(404, "Error al obtener la mascota por el nombre");
             return pet;
         } catch (error) {

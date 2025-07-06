@@ -69,6 +69,16 @@ class UserService {
         }
     }
 
+    userDeleteByEmail = async (email) => {
+        try {
+            const userDelete = await this.repository.userDeleteByEmail(email);
+            if (!userDelete) throw new customError(404, 'Error al eliminar el usuario email no encontrado');
+            return userDelete;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     userRegister = async (user) => {
         try {
             const { email, password } = user;

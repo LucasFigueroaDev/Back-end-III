@@ -6,7 +6,7 @@ class PetDao extends BaseDao {
         super(model);
     }
     getByName = async (name) => {
-        return await this.model.findOne({ name });
+        return await this.model.find({ name: new RegExp(`^${name}$`, 'i') });
     }
 
     getBySpecie = async (specie) => {

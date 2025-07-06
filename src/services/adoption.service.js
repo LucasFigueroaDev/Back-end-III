@@ -44,6 +44,17 @@ class AdoptionService {
             throw error;
         }
     }
+
+    deleteAdoption = async (id) => {
+        try {
+            const existAdoption = await this.repository.getAdoptionById(id);
+            if(!existAdoption) return CustomError(404, "Error al obtener la adopcion");
+            const adoption = await this.repository.deleteAdoption(id);
+            return adoption;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export const adoptionService = new AdoptionService(adoptionRepository);

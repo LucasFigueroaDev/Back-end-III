@@ -25,6 +25,10 @@ class UserRepository {
         return await this.dao.delete(id);
     }
 
+    userDeleteByEmail = async (email) => {
+        return await this.dao.deleteByEmail(email);
+    }
+
     createUser = async (user) => {
         return await this.dao.create(user);
     }

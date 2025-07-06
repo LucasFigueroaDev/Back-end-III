@@ -10,5 +10,9 @@ class AdoptionDao extends BaseDao {
         return await this.model.find().populate({ path: 'owner', select: 'first_name last_name -_id' }).populate({ path: 'pet', select: 'name -_id' });
     }
 
+    deleteAdoption = async (id) => {
+        return await this.model.findByIdAndDelete(id);
+    }
+
 }
 export const adoptionDao = new AdoptionDao(adoptionModel);

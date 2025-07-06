@@ -37,6 +37,16 @@ class SessionsController {
             next(error);
         }
     }
+
+    delete = async (req, res, next) => {
+        try {
+            const {email} = req.user;
+            const user = await this.service.userDeleteByEmail(email);
+            createResponse(res, 200, user);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export const sessionsController = new SessionsController(userService);

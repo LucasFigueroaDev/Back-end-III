@@ -1,9 +1,6 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import app from '../app.js';
-import 'dotenv/config';
-
-
 
 describe('users router', () => {
     let testUserId;
@@ -17,10 +14,7 @@ describe('users router', () => {
     before(async () => {
         const response = await request(app).post('/api/sessions/register').send(testUserData);
         testUserId = response.body.data.payload.id;
-    })
-
-    after(async () => {
-        await request(app).delete(`/api/users/${testUserId}`);
+        expect(response.status).to.equal(201);
     })
 
     it('GET /api/users We expect a list of users with status code 200', async () => {
@@ -51,6 +45,10 @@ describe('users router', () => {
         const response = await request(app).delete(`/api/users/${testUserId}`);
         expect(response.status).to.equal(200);
         expect(response.body).to.be.an('object');
+    })
+
+    after(async () => {
+        await request(app).delete(`/api/users/${testUserId}`);
     })
 })
 

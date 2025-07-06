@@ -31,6 +31,15 @@ class AdoptionsController {
             next(error);
         }
     }
+    deleteAdoption = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const adoption = await this.service.deleteAdoption(id);
+            createResponse(res, 200, { status: "Exito al eliminar la adopcion", payload: adoption });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export const adoptionsController = new AdoptionsController(adoptionService);
