@@ -61,7 +61,7 @@ npm install
 | Comando        | Descripción                      |
 |----------------|----------------------------------|
 | `npm start`    | Inicia el servidor en modo producción |
-| `npm run dev`  | Inicia el servidor en modo desarrollo con nodemon |
+| `npm run dev`  | Inicia el servidor en modo desarrollo |
 | `npm test`     | Ejecuta los tests con Mocha y Chai |
 
 ---
@@ -105,7 +105,7 @@ Se utiliza **Multer** para procesar archivos enviados por `multipart/form-data`.
 Crear un archivo `.env` con las siguientes claves:
 
 ```env
-PORT=3000
+PORT=8000
 MONGO_URI=mongodb://localhost:27017/mi_basededatos
 JWT_SECRET=tu_clave_secreta
 ```
@@ -123,6 +123,7 @@ Se utiliza la biblioteca **validator** y los DTOs para asegurar la integridad de
 Puedes acceder a la imagen Docker publicada desde el siguiente enlace:
 
 [🐳 Imagen en Docker Hub](https://hub.docker.com/r/figueroalucas/backend3)
+
 
 ---
 
