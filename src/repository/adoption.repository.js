@@ -1,7 +1,4 @@
-import CustomError from "../utils/customError.js";
 import { adoptionDao } from "../dao/adoption.dao.js";
-import { userDao } from "../dao/users.dao.js";
-import { petDao } from "../dao/pets.dao.js";
 
 class AdoptionRepository {
     constructor(dao) {
